@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react'
 import { useNavigate } from 'react-router';
-import Navbar from '../Components/Navbar';
 import { useCookies } from "react-cookie";
 import axios from "axios";
+
+import Navbar from "../Components/Navbar";
+import Book from '../Components/Book';
 
 function Home() {
 
@@ -35,7 +37,7 @@ function Home() {
       <>
         <Navbar />
         <div className="homePage_Products">
-          {/* <Product /> */}
+          <Book />
         </div>
       </>
     );
