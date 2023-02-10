@@ -1,11 +1,43 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
+
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [message, setMessage] = useState('');
   const [value, setValue] = useState({
       email: "",
       password: "",
   })
+
+  const generateError = (err) => {
+    setErrorMessage(true);
+    setMessage(err);
+  }
+    
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        try {
+          const { data } = await axios.post("http://localhost:5000/register", { ...value, }, {
+            withCredentials: true,
+          });
+          console.log(data);
+          if (data) {
+            if (data.errors) {
+              const { email, password } = data.errors;
+              
+              if (email) generateError(email);
+              else if (password) generateError(password);
+            } else {
+              navigate('/')
+            }
+          }
+        } catch (err) {
+            console.log(err);
+        }
+  }
 
   return (
     <div>
@@ -16,7 +48,15 @@ function Register() {
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Create an account
               </h1>
-              <form class="space-y-4 md:space-y-6" action="#">
+              {errorMessage ? (
+                <div className="border-2 rounded h-10 border-rose-400 p-1 text-center text-rose-700">
+                  {message}
+                </div>
+              ) : null}
+              <form
+                onSubmit={(e) => handleSubmit(e)}
+                class="space-y-4 md:space-y-6"
+              >
                 <div>
                   <label
                     for="email"
@@ -27,7 +67,9 @@ function Register() {
                   <input
                     type="email"
                     name="email"
-                    onChange={(e) => setValue({ ...value, [e.target.name]: e.target.value })}
+                    onChange={(e) =>
+                      setValue({ ...value, [e.target.name]: e.target.value })
+                    }
                     id="email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="name@company.com"
@@ -44,30 +86,16 @@ function Register() {
                   <input
                     type="password"
                     name="password"
-                    onChange={(e) => setValue({ ...value, [e.target.name]: e.target.value })}
+                    onChange={(e) =>
+                      setValue({ ...value, [e.target.name]: e.target.value })
+                    }
                     id="password"
                     placeholder="••••••••"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     required=""
                   />
                 </div>
-                <div>
-                  <label
-                    for="confirm-password"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Confirm password
-                  </label>
-                  <input
-                    type="confirm-password"
-                    name="confirm-password"
-                    onChange={(e) => setValue({ ...value, [e.target.name]: e.target.value })}
-                    id="confirm-password"
-                    placeholder="••••••••"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required=""
-                  />
-                </div>
+                
                 <div class="flex items-start"></div>
                 <button
                   type="submit"
@@ -89,5 +117,4 @@ function Register() {
     </div>
   );
 }
-
 export default Register

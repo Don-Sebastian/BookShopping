@@ -1,6 +1,19 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
+import { useCookies } from "react-cookie";
+
+
 
 function Navbar() {
+
+  const navigate = useNavigate();
+  const [cookies, removeCookies] = useCookies([]);
+  
+  const logOut = () => {
+    removeCookies("jwt");
+    navigate('/login');
+  }
+
   return (
     <>
       <div className="bg-white p-4 fixed top-0 z-50 w-full">
@@ -61,7 +74,7 @@ function Navbar() {
             <div className="col flex-initial w-3/12 items-center justify-end">
               <ul className="pl-20 m-2.5 ">
                 <li className="mr-2 text-center">
-                  <span className="text-gray p-1 w-6 h-6">
+                  <span className="text-gray p-1 w-6 h-6" onClick={logOut}>
                     <img
                       width={25}
                       height={25}

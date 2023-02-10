@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const connectDB = require('./config/db');
+const authRoutes = require('./Routes/AuthRouters');
+const cookieParser = require('cookie-parser');
 
 connectDB();
 
@@ -17,4 +19,6 @@ app.use(
   })
 );
 
+app.use(cookieParser());
 app.use(express.json());
+app.use('/', authRoutes);
