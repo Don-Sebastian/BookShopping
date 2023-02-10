@@ -10,14 +10,11 @@ function Home() {
   const [cookies, removeCookies] = useCookies([]);
   useEffect(() => {
     const verifyUser = async () => {
-      console.log(cookies.jwt,'.............')
       if (!cookies.jwt) {
         navigate("/login");
       } else {
-        console.log(`${process.env.BACKEND_PORT}`);
-        console.log(process.env.PORT);
         const { data } = await axios.post(
-          'http://localhost:5000',
+          'http://localhost:5000/api/books',
           // `${process.env.BACKEND_PORT}`,
           {},
           { withCredentials: true }
@@ -36,7 +33,10 @@ function Home() {
   
     return (
       <>
-        <Navbar/>
+        <Navbar />
+        <div className="homePage_Products">
+          {/* <Product /> */}
+        </div>
       </>
     );
 }

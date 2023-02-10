@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router';
 import { useCookies } from "react-cookie";
+import { Link } from 'react-router-dom';
 
 
 
@@ -16,11 +17,11 @@ function Navbar() {
 
   return (
     <>
-      <div className="bg-white p-4 fixed top-0 z-50 w-full">
+      <nav className="bg-white p-4 fixed top-0 z-50 w-full">
         <div className="container mx-auto px-4">
           <div className="row flex flex-wrap mx-4">
             <div className="col flex-initial w-3/12 items-center justify-start"></div>
-            <div className="col flex-initial w-6/12 items-center justify-center pt-6">
+            <div className="col flex-initial w-6/12 items-center justify-center">
               <form class="flex items-center">
                 <label for="simple-search" class="sr-only">
                   Search
@@ -72,23 +73,50 @@ function Navbar() {
               </form>
             </div>
             <div className="col flex-initial w-3/12 items-center justify-end">
-              <ul className="pl-20 m-2.5 ">
-                <li className="mr-2 text-center">
+              <div className="row pl-20 m-2.5 ">
+                <span className="col mr-2 text-center flex">
                   <span className="text-gray p-1 w-6 h-6" onClick={logOut}>
                     <img
-                      width={25}
-                      height={25}
+                      width={30}
+                      height={30}
                       src="https://img.icons8.com/dusk/100/000000/user-female-circle.png"
                       alt=""
                     />
-                    <span>My Account</span>
                   </span>
-                </li>
-              </ul>
+                  <span>My Account</span>
+                  <span className="text-rose-400 ml-2 text-lg">|</span>
+                  <Link to="/cart">
+                    <span className="ml-2 mt-1 flex">
+                      <span className="">
+                        <img
+                          width={30}
+                          height={30}
+                          src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/cart_white.svg"
+                          alt=""
+                        />
+                      </span>
+                      <span className="cartCouterBadge w-4 mb-3">0</span>
+                    </span>
+                  </Link>
+                  <Link to="/wishlist">
+                    <span className="ml-2 mt-1 flex">
+                      <span className="">
+                        <img
+                          width={30}
+                          height={30}
+                          src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/wishlist_white.svg"
+                          alt=""
+                        />
+                      </span>
+                      <span className="wishListCouterBadge w-4 mb-3">0</span>
+                    </span>
+                  </Link>
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </nav>
     </>
   );
 }
