@@ -107,7 +107,7 @@ function Login() {
                   type="submit"
                   class="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Create an account
+                  Login to account
                 </button>
                 <p class="text-sm font-light text-gray-500">
                   Create a new account?{" "}

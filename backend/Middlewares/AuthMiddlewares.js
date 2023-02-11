@@ -13,10 +13,14 @@ module.exports.checkUser = async (req, res, next) => {
           next();
         } else {
           req.userId = decodedToken.userId;
-          const user = await UserModel.findById(decodedToken.userId);
-          if (user) res.json({ status: true, user: user });
-          else res.json({ status: false });
-          next();
+            const user = await UserModel.findById(decodedToken.userId);
+            if (user)
+            {
+                res.locals.status = true;
+                res.locals.user = user;
+            } 
+            else res.json({ status: false });
+            next();
         }
       }
     );

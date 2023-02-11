@@ -1,7 +1,7 @@
 const { register, login } = require('../Controllers/AuthControllers');
 const { checkUser } = require('../Middlewares/AuthMiddlewares');
 
-const { getAllBooks, getBookById } = require('../Controllers/bookControllers')
+const { getHomePage, getAllBooks, getBookById } = require('../Controllers/bookControllers')
 
 const router = require('express').Router();
 
@@ -10,6 +10,7 @@ router.post("/login", login);
 
 //@desc GET all products form db
 //@route GET /api/products
+router.post("/", checkUser, getHomePage);
 router.post('/api/books', checkUser, getAllBooks);
 
 //@desc GET a product form db
