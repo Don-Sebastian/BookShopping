@@ -34,18 +34,25 @@ const getAllBooks = async (req, res) => {
 }
 
 const getBookById = async (req, res) => {
+  if (res.locals.status) {
+    let status = res.locals.status;
+    let user = res.locals.user;
     try {
-        const bookDetails = await books.findById(req.params.id);
+      const bookDetails = await books.findById(req.params.id);
 
-        res.json(bookDetails);
+      res.json({ bookDetails, status, user });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server Error" });
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
     }
+  } else {
+    res.json({ status: false });
+  }
+    
 };
 
 module.exports = {
-    getHomePage,
-    getAllBooks,
-    getBookById,
-}
+  getHomePage,
+  getAllBooks,
+  getBookById,
+};

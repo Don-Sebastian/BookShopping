@@ -71,7 +71,6 @@ function Home() {
                     imageUrl={book.imageUrl}
                   />
                 ))
-                // <Book />
               )}
             </div>
           </div>

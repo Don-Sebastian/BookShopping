@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Book({imageUrl, name, price, description, productId, author}) {
+function Book({imageUrl, name, price, description, bookId, author}) {
   return (
-      <div>
+    <div>
       <div class="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
         <div class="overflow-x-hidden rounded-2xl relative">
-          <img
-            class="h-40 rounded-2xl w-full object-cover"
-            src={imageUrl}
-          />
+          <Link to={`/book-details/${bookId}`}>
+            <img class="h-40 rounded-2xl w-full object-cover" src={imageUrl} />
+          </Link>
           <p class="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +29,7 @@ function Book({imageUrl, name, price, description, productId, author}) {
         <div class="mt-4 pl-2 mb-2 flex justify-between ">
           <div>
             <p class="text-lg font-semibold text-gray-900 mb-0">{name}</p>
-                      <p class="text-md text-gray-800 mt-0">Rs.{price}</p>
+            <p class="text-md text-gray-800 mt-0">Rs.{price}</p>
           </div>
           <div class="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
             <svg
